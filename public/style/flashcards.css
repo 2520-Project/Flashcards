@@ -1,0 +1,46 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: white;
+    color: black;
+    margin: auto;
+    
+}
+
+/* Start of the Navigation bar*/
+
+#navBar {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #cccccc;
+    box-shadow: 0 2px 7px #888888;
+}
+
+.navBarLeft {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    float: left;
+}
+.navBarLeft:hover {
+    background-color: #808080;
+}
+
+.navBarRight {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    float: right;
+}
+.navBarRight:hover {
+    background-color: #808080;
+}
+
+.navBarLink:hover {
+    background-color: #808080;
+}
