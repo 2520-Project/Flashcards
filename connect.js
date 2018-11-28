@@ -45,15 +45,26 @@ function signup(username, email, password, callback) {
 
 /** Connects to our mongo database and returns an active client and collection. */
 function connectDB(callback) {
-	MongoClient.connect(url, function(err, client) {
+    MongoClient.connect(url, function(err, client) {
         if(err) {
             throw err;
         } else {
-        	var db = client.db(db_client)
-		    var collection = db.collection('Users')
-		    callback(collection, db, client)
+            var db = client.db(db_client)
+            var collection = db.collection('Users')
+            callback(collection, db, client)
         }
-	});
+    });
+}
+
+/** Finds the list's index number in the data file and returns it. */
+function getListIndex(list, data) {
+    var lists = data.lists
+
+    for (var i = 0; i < lists.length; i++) {
+        if (lists[i].name === list) {
+            return i
+        }
+    }
 }
 
 /** Finds the file associated with the email and returns it if it exists. If it does not exist it return the string 'failed' */
@@ -134,6 +145,7 @@ function deleteListDB(email, list, callback) {
 module.exports = {
     login,
     signup,
+    getListIndex,
     readFile,
     updateDB,
     addUserDB,

@@ -4,6 +4,7 @@ const express = require('express');
 const hbs = require('hbs');
 const fs = require('fs');
 var request = require('request');
+const session = require('client-sessions');
 
 const port = process.env.PORT || 8080;
 
@@ -23,9 +24,22 @@ app.use(bodyParser.urlencoded({ // to support URL-encoded bodies
 }));
 app.use(bodyParser.json())
 
-app.get('/', (request, response) => {
-    response.render('log.hbs')
-});
+// creates a session
+app.use(session({
+    cookieName: 'session',
+    secret: 'i_cant_tell_you',
+    duration: 1 * 60 * 60 * 1000,
+    activeDuration: 1 * 30 * 60 * 1000
+}));
+
+/** Checks to see if the session is still active, if it isnt it redirects to '/' */
+function sessionCheck(req, res, next) {
+    if (req.session && req.session.user) {
+        next()
+    } else {
+        res.redirect('/')
+    }
+}
 
 /**
  * sends the username and password to the DB for validation, if true it redirects to the homepage, 
@@ -38,7 +52,7 @@ app.post('/login', function(req, res) {
                 error: 'Wrong email or password'
             });
         } else {
-            req.user = user
+            req.session.user = user
             res.redirect('/home')
         }
     });
@@ -53,10 +67,14 @@ app.post('/signup', function (req, res) {
         if (msg === 'failed') {
             // res.render('signup.hbs')
         } else {
-            req.msg = msg
+            req.session.msg = msg
             res.redirect('/')
         }
     });
+});
+
+app.get('/', (request, response) => {
+    response.render('log.hbs')
 });
 
 /**
@@ -66,19 +84,15 @@ app.get('/signup', (request, response) => {
     response.render('log.hbs')
 });
 
-app.get('/home', (request, response) => {
-    response.render('home.hbs');
-});
-
 /**
  * This takes the username and go to the home page at home.hbs
  */
-app.get('/home', (req, res) => {
-    getDB.readFile(req.user.email, (user) => {
-        req.user = user
+app.get('/home', sessionCheck, (req, res) => {
+    getDB.readFile(req.session.user.email, (user) => {
+        req.session.user = user
         res.render('home.hbs', {
-            username: req.user.username,
-            lists: req.user.lists
+            username: req.session.user.username,
+            lists: req.session.user.lists
         });
     });
 });
@@ -87,7 +101,7 @@ app.get('/home', (req, res) => {
  * sends the new lists name to the DB to add it. if it returns true then the function sends a response to the webpage.
  */
 app.post('/addList', (req, res) => {
-    var email = req.user.email
+    var email = req.session.user.email
     var list = req.body
     getDB.addListDB(email, list, (msg) => {
         if (msg === 'success') {
@@ -100,7 +114,7 @@ app.post('/addList', (req, res) => {
  * sends a the lists name to the DB to delete it. if it returns true then the function sends a response to the webpage.
  */
 app.post('/deleteList', (req, res) => {
-    var email = req.user.email
+    var email = req.session.user.email
     var list = req.body.list
     getDB.deleteListDB(email, list, (msg) => {
         if (msg === 'success') {
@@ -109,18 +123,19 @@ app.post('/deleteList', (req, res) => {
     })
 });
 
-/*app.post('/flashList', (req, res) => {
-    getDB.readFile(req.user.email, (user) => {
-        req.user = user
-        req.user.currentList = req.body.radioList
-        listIndex = getDB.getListIndex(req.body.radioList, req.user)
-        res.render('list.hbs', {
-            list: req.user.lists[listIndex]
+app.post('/flashCards', sessionCheck, (req, res) => {
+    getDB.readFile(req.session.user.email, (user) => {
+        req.session.user = user
+        req.session.user.currentList = req.body.radioList
+        listIndex = getDB.getListIndex(req.body.radioList, req.session.user)
+        res.render('flashcards.hbs', {
+            list: req.session.user.lists[listIndex]
         });
     });
-});*/
+});
 
 app.get('/logout', (req, res) => {
+    req.session.reset();
     res.redirect('/');
 });
 
