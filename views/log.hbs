@@ -11,12 +11,12 @@
 <body>
     <div id="Login">
         <div class="userAuth" id="registerDiv" style="left:20vw;">
-        <form id="register-form" action="/signup" method="post">
-            <input class="userAuthForm" id="emailInput" name="email" type="text" placeholder="Email" />
-            <input class="userAuthForm" id="usernameInput" name="username" type="text" placeholder="Username" />
-            <input class="userAuthForm" id="passwordInput" name="password" type="password" placeholder="Password" />
-            <input class="userAuthForm" id="register_button" type="submit" value="Register" onclick='return checkSignup()'/>
-        </form>
+            <form id="register-form" action="/signup" method="post">
+                <input class="userAuthForm" id="emailInput" name="email" type="text" placeholder="Email" />
+                <input class="userAuthForm" id="usernameInput" name="username" type="text" placeholder="Username" />
+                <input class="userAuthForm" id="passwordInput" name="password" type="password" placeholder="Password" />
+                <input class="userAuthForm" id="register_button" type="submit" value="Register" onclick='return checkSignup()'/>
+            </form>
         </div>
         <div class="userAuth" id="loginDiv" style="right:20vw;">
             <form id="login-form" action="/login" method="post">
@@ -28,7 +28,6 @@
         </div>
     </div>
     
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src='js/signup.js'></script>
 </body>
 </html>

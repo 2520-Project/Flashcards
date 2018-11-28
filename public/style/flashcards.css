@@ -6,11 +6,6 @@ body {
     
 }
 
-h3 {
-    position: relative;
-    margin-top: 65px;
-}
-
 /* Start of the Navigation bar*/
 
 #navBar {
@@ -48,14 +43,4 @@ h3 {
 
 .navBarLink:hover {
     background-color: #808080;
-}
-
-#home {
-    background-color: #808080;
-}
-/* End of the Navigation bar */
-
-.text {
-    text-align: center;
-    font-family: verdana;
 }

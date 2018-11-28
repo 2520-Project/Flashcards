@@ -5,7 +5,6 @@
 		<meta charset='utf-8'>
 		<title>Home</title>
 		<link href='style/home.css' rel='stylesheet' type='text/css'/>
-		<meta name="viewport" content="width=device-width, initial-scale=1">
 	</head>
 
 	<body>
@@ -15,25 +14,22 @@
 			<h1>Welcome {{username}}</h1>
 		</div>
 
-		<div id="outerMain">
-			<div id="innermain">
-				<div class='text'>
-					<h3><b>FlashCard Lists:</b></h3>
-					<button class='button' id='addList'>Create a new list</button>
-				
+		<div id="innermain">
+			<div class='text'>
+				<h3><b>FlashCard Lists:</b></h3>
+				<button class='button' id='addList'>Create a new list</button>
+			
 
-					<form id='radioForm' action="/flashList" method="post" onsubmit="return valid();" >
-					{{#each lists as |list|}}
-						<input type="radio" name="radioList" id="{{list.name}}" value="{{list.name}}"><label for='{{list.name}}'>{{list.name}}</label><br>
-					{{/each}}
-						<input type='submit' class='button' id='sendButton' value='Open List'>
-					</form>
-					<button class='button' id='delList'>Delete List</button>
-				</div>
+				<form id='radioForm' action="/flashCards" method="post" onsubmit="return valid();" >
+				{{#each lists as |list|}}
+					<input type="radio" name="radioList" id="{{list.name}}" value="{{list.name}}"><label for='{{list.name}}'>{{list.name}}</label><br>
+				{{/each}}
+					<input type='submit' class='button' id='sendButton' value='Open List'>
+				</form>
+				<button class='button' id='delList'>Delete List</button>
 			</div>
 		</div>
 
 		<script src='js/home.js'></script>
-		<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	</body>
 </html>
