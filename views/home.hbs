@@ -10,23 +10,21 @@
 	<body>
 		{{> navbar}}
 
-		<div class='text'>
+		<div id="outermain">
 			<h1>Welcome {{username}}</h1>
-		</div>
+			<div id="innermain">
+				<div class='text'>
+					<h3><b>FlashCard Lists:</b></h3>
+					<button class='button' id='addList'>Create a new list</button>
 
-		<div id="innermain">
-			<div class='text'>
-				<h3><b>FlashCard Lists:</b></h3>
-				<button class='button' id='addList'>Create a new list</button>
-			
-
-				<form id='radioForm' action="/flashCards" method="post" onsubmit="return valid();" >
-				{{#each lists as |list|}}
-					<input type="radio" name="radioList" id="{{list.name}}" value="{{list.name}}"><label for='{{list.name}}'>{{list.name}}</label><br>
-				{{/each}}
-					<input type='submit' class='button' id='sendButton' value='Open List'>
-				</form>
-				<button class='button' id='delList'>Delete List</button>
+					<form id='radioForm' action="/flashCards" method="post" onsubmit="return valid();" >
+					{{#each lists as |list|}}
+						<input type="radio" name="radioList" id="{{list.name}}" value="{{list.name}}"><label for='{{list.name}}'>{{list.name}}</label><br>
+					{{/each}}
+						<input type='submit' class='button' id='sendButton' value='Open List'>
+					</form>
+					<button class='button' id='delList'>Delete List</button>
+				</div>
 			</div>
 		</div>
 
