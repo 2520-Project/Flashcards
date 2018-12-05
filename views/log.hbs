@@ -10,23 +10,30 @@
 
 <body>
     <div id="Login">
+        <div class= "display" id="displayTitle" style="left:20vw;">
+            <div class= "title" id="titleMsg">
+                <h1>Flashcards!</h1>
+            </div>
+            
+        </div>
         <div class="userAuth" id="registerDiv" style="left:20vw;">
             <form id="register-form" action="/signup" method="post">
                 <input class="userAuthForm" id="emailInput" name="email" type="text" placeholder="Email" />
                 <input class="userAuthForm" id="usernameInput" name="username" type="text" placeholder="Username" />
                 <input class="userAuthForm" id="passwordInput" name="password" type="password" placeholder="Password" />
-                <input class="userAuthForm" id="register_button" type="submit" value="Register" onclick='return checkSignup()'/>
+                <input class="userAuthButton" id="register_button" type="submit" value="Register" onclick='return checkSignup()'/>
             </form>
         </div>
         <div class="userAuth" id="loginDiv" style="right:20vw;">
             <form id="login-form" action="/login" method="post">
                 <input class="userAuthForm" id="email" name="email" type="text" placeholder="Enter Email" value="" />
                 <input class="userAuthForm" id="password" name="password" type="password" placeholder="Enter Password" value="" />
-                <input class="userAuthForm" id="login_button" type="submit" value="Login" />
+                <input class="userAuthButton" id="login_button" type="submit" value="Login" />
                 {{error}}
             </form>
         </div>
     </div>
+
     
     <script src='js/signup.js'></script>
 </body>
