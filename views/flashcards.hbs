@@ -8,16 +8,32 @@
 
 <body>
     {{> navbar}}
-    <h2>Flashcard</h2>
-    </br>
-    <textarea id="question" rows="4" cols="40" maxlength="25" placeholder="Question"></textarea>
-    </br>
-    <textarea id="answer" rows="4" cols="40" maxlength="25" placeholder="Answer"></textarea>
-    </br>
-    <button id="save" type="button">Save</button>
-    <script type="text/javascript" src="flashcards.js"></script>
+    <h2>{{list.name}}</h2>
+    <div id='createCard'>
+            <form id="card-create-form" action="/addCard" method="post">
+                <textarea class="cardForm" id="questionInput" name="question" rows="4" cols="40" maxlength="25" placeholder="Question"></textarea>
+                <textarea class="cardForm" id="answerInput" name="answer" rows="4" cols="40" maxlength="25" placeholder="Answer"></textarea>
+                <input type='submit' class='button' id='saveButton' value='Save'>
+            </form>
+    </div>
+
+        <div id="cardDisplay" form="delete-card-form">
+            <div id="currentDisplay">Question</div>
+            <div id="questionDisplay" name="currentQuestion" style="display: block">{{list.cards.[0].question}}</div>
+            <div id="answerDisplay" name="currentAnswer" style="display: none">{{list.cards.[0].answer}}</div>
+        </div>
+        <input type='submit' class="button" id="flipCard" value="FLIP" />
+
+        <div id="navigate">
+            <input type='submit' class="button" id="previousCard" value="<"/>
+            <input type='submit' class="button" id="nextCard" value=">"/>
+        </div>
+        
+        <form id="delete-card-form" action="/deleteCard" method="post">
+           <input type='submit' class='button' id='saveButton' value='Delete'>
+        </form>
+
     <script src='js/flashcards.js'></script>
 </body>
-{{navbar}}
 
 </html>

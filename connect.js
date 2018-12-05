@@ -67,6 +67,17 @@ function getListIndex(list, data) {
     }
 }
 
+/**finds the index number of the flashcard and returns is*/
+function getCardIndex(list, card, data) {
+    var listIndex = getListIndex(list, data)
+    var cards = data.lists[listIndex].cards
+    for(var i=0; i < cards.length; i++) {
+        if (cards[i].name === card) {
+            return i
+        }
+    }
+};
+
 /** Finds the file associated with the email and returns it if it exists. If it does not exist it return the string 'failed' */
 function readFile(email, callback){
     connectDB(function(collection, db, client) {
@@ -126,6 +137,7 @@ function deleteUserDB(record, table, callback) {
 /** Adds a new list to a users file and saves it to the database */
 function addListDB(email, list, callback) {
     readFile(email, (user) => {
+        list["cards"] = []
         user.lists.push(list);
         updateDB(email, user);
         callback('success')
@@ -142,14 +154,44 @@ function deleteListDB(email, list, callback) {
     })
 }
 
+/** Adds a new question and answer (flashcard) to the databasse*/
+function addCardDB(email, list, question, answer, callback) {
+    if (question.length > 3 && answer.length > 3){
+        readFile(email, (user) => {
+        var listIndex = getListIndex(list, user)
+        var card = {"question": question,"answer": answer};
+        user.lists[listIndex].cards.push(card);
+        updateDB(email, user)
+        callback('success')
+        });
+    } else {
+        callback('failed')
+    }
+}
+
+/** deletes a question and answer (flashcard) from the database */
+function deleteCardDB(email, list, question, answer, callback){
+    readFile(email, (user) => {
+        var card = {"question": question,"answer": answer};
+        var listIndex = getListIndex(list, user);
+        var cardIndex = getCardIndex(list, card, user);
+        user.lists[listIndex].cards.splice(cardIndex,1);
+        updateDB(email, user)
+        callback('success')
+    })
+}
+
 module.exports = {
     login,
     signup,
     getListIndex,
+    getCardIndex,
     readFile,
     updateDB,
     addUserDB,
     deleteUserDB,
     addListDB,
-    deleteListDB
+    deleteListDB,
+    addCardDB,
+    deleteCardDB
 }

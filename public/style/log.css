@@ -1,11 +1,23 @@
-body {
-    margin: 0;
-    background-image: url("2.jpg");
+@font-face {
+    font-family: BrandonBold;
+    src: url('Brandon_bld.otf');
+}
+@font-face {
+    font-family: BrandonMedium;
+    src: url('Brandon_med.otf');
+}
+@font-face {
+    font-family: BrandonMediumItalic;
+    src: url('Brandon_med_it.otf');
 }
 
-.navButton {
-    height: 10vh;
-    width: 100%;
+body {
+    margin: 0;
+    font-family: BrandonBold;
+    background-color:#FFFCF8;
+    color:#070400;
+    font-size:1.75vw;
+    background-image: url("2.jpg");
 }
 
 .contentDiv {
@@ -32,17 +44,70 @@ body {
     position: absolute;
 }
 
+.display {
+    top:10vh;
+    text-align: center;
+    height: 15vh;
+    width: 100%;
+    font-size: 2vw;
+    font-family: roboto;
+    background-color:#;
+    color:#F1F7F7;
+}
+
+.title {
+    top:10vh;
+    right:30vw;
+    height: 15vh;
+    width: 100%;
+    font-size: 3vw;
+    font-family: BrandonBold;
+    background-color:#;
+    color:#2F4F4F;
+    padding-left: 22vw;
+    padding-bottom: 10vh;
+}
+
 .userAuth {
-    top: 60vh;
+    top: 65vh;
     width: 15vw;
     position: absolute;
     display: block;
 }
 
 .userAuthForm {
-    vertical-align: top;
+    height: 30px;
     width: 100%;
+    padding: 10px 20px;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-sizing: border-box;
+    margin-bottom: 5px 0;
 }
+
+.userAuthButton {
+    background-color: #2F4F4F;
+    border: none;
+    color: white;
+    height:6vh;
+    width: 100%;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-family: BrandonMedium;
+    font-size: 18px;
+    border-radius: 8px;
+}
+
+.userAuthButton:hover {background-color: #008080}
+
+.userAuthButton:active {
+  background-color: #2F4F4F;
+  box-shadow: 0 3px #666;
+  transform: translateY(3px);
+}
+
 
 #registerDiv {
     margin-left: 45%;
